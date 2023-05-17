@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SJgjeh6kh+YxRSUZnaiko6guabw+nb/fwBjG/Z3bWlnRvWBnJtYRr7cq3Tn8jlQs+eBLAarLAgoy49MPLHS19Q==",
+  "dgSpecHash": "MnpjNSg1kpJP70Qr6g93KG2ISpYPvrglSLFiYfpOCS/7NjY68RhPh3vYfz81GrtOjGEwSIUo15Xc2fQcaTbTQA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Caio\\source\\repos\\API_TCC v2\\API_TCC.csproj",
+  "projectFilePath": "C:\\Users\\Caio\\Documents\\GitHub\\WebApiTCC\\API_TCC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Caio\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.3\\microsoft.aspnetcore.openapi.7.0.3.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.3\\microsoft.entityframeworkcore.7.0.3.nupkg.sha512",
