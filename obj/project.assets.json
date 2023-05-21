@@ -1913,11 +1913,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Caio\\Documents\\GitHub\\WebApiTCC\\API_TCC.csproj",
+      "projectUniqueName": "C:\\Users\\Caio\\source\\repos\\API_TCC v2\\API_TCC.csproj",
       "projectName": "API_TCC",
-      "projectPath": "C:\\Users\\Caio\\Documents\\GitHub\\WebApiTCC\\API_TCC.csproj",
+      "projectPath": "C:\\Users\\Caio\\source\\repos\\API_TCC v2\\API_TCC.csproj",
       "packagesPath": "C:\\Users\\Caio\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Caio\\Documents\\GitHub\\WebApiTCC\\obj\\",
+      "outputPath": "C:\\Users\\Caio\\source\\repos\\API_TCC v2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Caio\\AppData\\Roaming\\NuGet\\NuGet.Config",

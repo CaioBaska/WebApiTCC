@@ -17,7 +17,7 @@ namespace API_TCC.Services
 
         public List<MonitoramentoModel> GetAllDados()
         {
-            string query = "SELECT * FROM C##TCC.MONITORAMENTO WHERE ROWNUM=1 ORDER BY 1 DESC";
+            string query = "SELECT * FROM TCC.MONITORAMENTO WHERE ROWNUM=1 ORDER BY 1 DESC";
 
             if (_context.State != System.Data.ConnectionState.Open)
             {

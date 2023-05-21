@@ -17,7 +17,7 @@ namespace API_TCC.Services
 
         public bool ValidarLogin(string login, string senha)
         {
-            string query = "SELECT * FROM C##TCC.usuarios WHERE LOGIN = :login AND SENHA = :senha";
+            string query = "SELECT * FROM TCC.usuarios WHERE LOGIN = :login AND SENHA = :senha";
 
             if (_context.State != System.Data.ConnectionState.Open)
             {

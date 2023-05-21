@@ -15,7 +15,7 @@ namespace API_TCC.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("C##TCC"); // adiciona o schema padrão para todas as tabelas
+            modelBuilder.HasDefaultSchema("TCC"); // adiciona o schema padrão para todas as tabelas
             modelBuilder.Entity<UsuarioModel>().ToTable("USUARIOS"); // define a tabela para a entidade Usuario
             modelBuilder.Entity<MonitoramentoModel>().ToTable("MONITORAMENTO").HasNoKey(); // define a tabela para a entidade MonitoramentoModel
         }
