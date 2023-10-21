@@ -1,13 +1,9 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API_TCC.Database;
 using API_TCC.Model;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using API_TCC.Services;
 using Oracle.ManagedDataAccess.Client;
-using Newtonsoft.Json;
 
 namespace API_TCC.Controllers
 {

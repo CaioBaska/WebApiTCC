@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace API_TCC.Model
+﻿namespace API_TCC.Model
 {
     public class MonitoramentoModel
     {
