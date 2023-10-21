@@ -38,12 +38,10 @@ namespace API_TCC.Controllers
 
             if (valid.HasValue && valid.Value)
             {
-                // Login válido
                 return Ok(true);
             }
             else
-            {
-                // Login inválido
+            {   
                 return BadRequest("Credenciais inválidas");
             }
         }

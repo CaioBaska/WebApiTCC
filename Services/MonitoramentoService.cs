@@ -3,6 +3,7 @@ using Oracle.ManagedDataAccess.Client;
 using System.Data;
 using Newtonsoft.Json;
 using API_TCC.Model;
+using Dapper;
 
 namespace API_TCC.Services
 {
@@ -24,30 +25,10 @@ namespace API_TCC.Services
                 _context.Open();
             }
 
-            using (OracleCommand command = new OracleCommand(query, _context))
-            {
-                using (OracleDataReader reader = command.ExecuteReader())
-                {
-                    List<MonitoramentoModel> result = new List<MonitoramentoModel>();
-                    while (reader.Read())
-                    {
-                        int.TryParse(reader.GetString(1), out int tempValue);
-                        int.TryParse(reader.GetString(2), out int phValue);
-                        int.TryParse(reader.GetString(3), out int umidadeValue);
-                        int.TryParse(reader.GetString(4), out int luminValue);
+            List<MonitoramentoModel> result = _context.Query<MonitoramentoModel>(query).ToList();
 
-                        var data = new MonitoramentoModel
-                        {
-                            Temperatura = tempValue,
-                            Ph = phValue,
-                            Umidade = umidadeValue,
-                            Luminosidade = luminValue
-                        };
-                        result.Add(data);
-                    }
-                    return result;
-                }
-            }
+            return result;
         }
+
     }
 }

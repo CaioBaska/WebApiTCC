@@ -1,6 +1,7 @@
 ﻿using API_TCC.Database;
 using API_TCC.Model;
 using API_TCC.Repositories;
+using Dapper;
 using Oracle.ManagedDataAccess.Client;
 using System;
 
@@ -17,26 +18,24 @@ namespace API_TCC.Services
 
         public bool ValidarLogin(string login, string senha)
         {
-            string query = "SELECT * FROM TCC.usuarios WHERE LOGIN = :login AND SENHA = :senha";
-
-            if (_context.State != System.Data.ConnectionState.Open)
+            try
             {
-                _context.Open();
-            }
+                string query = "SELECT 1 FROM TCC.usuarios WHERE LOGIN = :login AND SENHA = :senha";
 
-            using (OracleCommand command = new (query, _context))
-            {
-                command.Parameters.Add(new OracleParameter(":login", login));
-                command.Parameters.Add(new OracleParameter(":senha", senha));
-
-                using (OracleDataReader reader = command.ExecuteReader())
+                if (_context.State != System.Data.ConnectionState.Open)
                 {
-                    return reader.HasRows;
+                    _context.Open();
                 }
 
+                int result = _context.QueryFirstOrDefault<int>(query, new { login, senha });
 
+                return result == 1;
+            }
+            catch (Exception ex)
+            {
+                // Tratar exceções aqui (registrar ou lançar uma exceção personalizada, se necessário)
+                throw new Exception("Ocorreu um erro durante a validação do login.", ex);
             }
         }
-
-     }
+    }
 }
