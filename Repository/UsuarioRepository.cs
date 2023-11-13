@@ -3,5 +3,6 @@
     public interface IUsuarioRepository
     {
         bool ValidarLogin(string login, string senha);
+        void CriaLogin(string nome ,string login, string senha);
     }
 }

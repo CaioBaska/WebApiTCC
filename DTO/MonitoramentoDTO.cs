@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace API_TCC.Model
+﻿namespace API_TCC.DTO
 {
-    public class MonitoramentoModel
+    public class MonitoramentoDTO
     {
-        [Key]
-        public int ID { get; set; }
         public int TEMPERATURA { get; set; }
         public int PH { get; set; }
         public int UMIDADE { get; set; }

@@ -1,15 +1,18 @@
-﻿using API_TCC.Repositories;
-using Dapper;
-using Oracle.ManagedDataAccess.Client;
-
+﻿using API_TCC.Database;
+using API_TCC.Repositories;
+using Oracle.EntityFrameworkCore;
+using API_TCC.Model;
+using Microsoft.EntityFrameworkCore;
+using API_TCC.DTO;
+using System;
 
 namespace API_TCC.Services
 {
     public class UsuarioService : IUsuarioRepository
     {
-        private readonly OracleConnection _context;
+        private readonly MyDbContext _context;
 
-        public UsuarioService(OracleConnection context)
+        public UsuarioService(MyDbContext context)
         {
             _context = context;
         }
@@ -18,21 +21,32 @@ namespace API_TCC.Services
         {
             try
             {
-                string query = $@"SELECT 1 FROM TCC.usuarios WHERE LOGIN = '{login}' AND SENHA = '{senha}'";
+                string query = $@"SELECT 1 FROM TCC.usuarios WHERE LOGIN = UPPER('{login}') AND SENHA = '{senha}'";
 
-                if (_context.State != System.Data.ConnectionState.Open)
-                {
-                    _context.Open();
-                }
-
-                bool result = _context.QueryFirstOrDefault<bool>(query, new { login, senha });
+                bool result = _context.UsuarioModel.FromSqlRaw(query).Any();
 
                 return result;
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocorreu um erro durante a validação do login.", ex);
+                Console.WriteLine($"Erro na consulta: {ex.Message}");
+                return false;
             }
         }
+
+        public void CriaLogin(string nome, string login, string senha)
+        {
+            try
+            {
+                string query = $@"INSERT INTO TCC.usuarios (NOME, LOGIN, SENHA) VALUES ('{nome}', '{login}', '{senha}')";
+
+                _context.Database.ExecuteSqlRaw(query);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao criar login: {ex.Message}");
+            }
+        }
+
     }
 }

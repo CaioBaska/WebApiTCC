@@ -1,23 +1,35 @@
 ﻿using API_TCC.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace API_TCC.Database
 {
     public class MyDbContext : DbContext
     {
-        public MyDbContext(DbContextOptions<MyDbContext> options)
+        private readonly IConfiguration _configuration;
+
+        public MyDbContext(DbContextOptions<MyDbContext> options, IConfiguration configuration)
             : base(options)
         {
+            _configuration = configuration;
         }
 
-        public DbSet<UsuarioModel> LoginModel { get; set; }
+        public DbSet<UsuarioModel> UsuarioModel { get; set; }
         public DbSet<MonitoramentoModel> MonitoramentoModel { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseOracle(_configuration.GetConnectionString("OracleConnection"));
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("TCC"); // adiciona o schema padrão para todas as tabelas
-            modelBuilder.Entity<UsuarioModel>().ToTable("USUARIOS"); // define a tabela para a entidade Usuario
-            modelBuilder.Entity<MonitoramentoModel>().ToTable("MONITORAMENTO").HasNoKey(); // define a tabela para a entidade MonitoramentoModel
+            modelBuilder.HasDefaultSchema("TCC");
+            modelBuilder.Entity<UsuarioModel>().ToTable("USUARIOS");
+            modelBuilder.Entity<MonitoramentoModel>().ToTable("MONITORAMENTO");
         }
     }
 }

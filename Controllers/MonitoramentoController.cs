@@ -1,32 +1,38 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using API_TCC.Database;
+using Oracle.ManagedDataAccess.Client;
+using API_TCC.Repositories;
 using API_TCC.Model;
 using API_TCC.Services;
-using Oracle.ManagedDataAccess.Client;
+using Microsoft.EntityFrameworkCore;
+using API_TCC.Database;
+using API_TCC.DTO;
 
 namespace API_TCC.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class MonitoramentoController : ControllerBase
     {
         private readonly MyDbContext _context;
+        private readonly MonitoramentoService _monitoramentoService;
+        private readonly IMonitoramentoRepository _repository;
 
-        public MonitoramentoController(MyDbContext context)
+        public MonitoramentoController(MyDbContext context, IMonitoramentoRepository repository, MonitoramentoService monitoramentoService)
         {
             _context = context;
+            _repository = repository;
+            _monitoramentoService = monitoramentoService;
         }
 
-        [HttpGet("monitoramento")]
-        public ActionResult<List<MonitoramentoModel>> GetAllDados()
+        [HttpGet("obterDados")]
+        public IActionResult GetAllDados()
         {
-            var connection = (OracleConnection)_context.Database.GetDbConnection();
-            var service = new MonitoramentoService(connection);
+            //var connection = (OracleConnection)_context.Database.GetDbConnection();
+            //var service = new MonitoramentoService(connection);
 
-            var dados = service.GetAllDados();
+            List<MonitoramentoDTO> dados = _monitoramentoService.GetAllDados();
 
-            return dados;
+            return  Ok(dados);
         }
 
     }

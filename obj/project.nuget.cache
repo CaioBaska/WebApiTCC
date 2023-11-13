@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vsDArb+WJ+VCGW6OZg+B2HA9IbHK5ddQjoJkFGdTeSSxnuPL322pxLOxsvLIdogsF32x9PcQA3OCsBXDA9eIww==",
+  "dgSpecHash": "QvZXkYvyuC/TfRgZXxgzDOEKHrPeCQBp5ghXT6/Kqm/JtN3V0aXZulGBvcKe+oyk09CYYHqil4YM91NxAq8Qsw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Caio\\source\\repos\\API_TCC v2\\API_TCC.csproj",
   "expectedPackageFiles": [
@@ -24,6 +24,8 @@
     "C:\\Users\\Caio\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.4\\microsoft.netcore.platforms.5.0.4.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\Caio\\.nuget\\packages\\mqttnet\\3.1.2\\mqttnet.3.1.2.nupkg.sha512",
+    "C:\\Users\\Caio\\.nuget\\packages\\mqttnet.extensions.managedclient\\3.1.2\\mqttnet.extensions.managedclient.3.1.2.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\oracle.entityframeworkcore\\7.21.9\\oracle.entityframeworkcore.7.21.9.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\oracle.manageddataaccess.core\\3.21.90\\oracle.manageddataaccess.core.3.21.90.nupkg.sha512",

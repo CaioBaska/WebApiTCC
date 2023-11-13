@@ -1,39 +1,49 @@
 ﻿using API_TCC.Repositories;
-using Oracle.ManagedDataAccess.Client;
 using API_TCC.Model;
-using Dapper;
+using API_TCC.Database;
+using Microsoft.EntityFrameworkCore;
+using API_TCC.DTO;
 
 namespace API_TCC.Services
 {
     public class MonitoramentoService : IMonitoramentoRepository
     {
-        private readonly OracleConnection _context;
+        private readonly MyDbContext _context;
 
-        public MonitoramentoService(OracleConnection context)
+        public MonitoramentoService(MyDbContext context)
         {
             _context = context;
         }
 
-        public List<MonitoramentoModel> GetAllDados()
+        public List<MonitoramentoDTO> GetAllDados()
         {
             try
             {
-                string query = "SELECT * FROM TCC.MONITORAMENTO WHERE ROWNUM=1 ORDER BY 1 DESC";
+                string query = "SELECT TEMPERATURA, PH, UMIDADE, LUMINOSIDADE FROM TCC.MONITORAMENTO WHERE ROWNUM=1 ORDER BY 1 DESC";
 
-                if (_context.State != System.Data.ConnectionState.Open)
-                {
-                    _context.Open();
-                }
-
-                List<MonitoramentoModel> result = _context.Query<MonitoramentoModel>(query).ToList();
+                List<MonitoramentoDTO> result = _context.MonitoramentoModel
+                    .FromSqlRaw(query)
+                    .Select(m => new MonitoramentoDTO
+                    {
+                        TEMPERATURA = m.TEMPERATURA,
+                        PH = m.PH,
+                        UMIDADE = m.UMIDADE,
+                        LUMINOSIDADE = m.LUMINOSIDADE
+                    })
+                    .ToList();
 
                 return result;
             }
             catch (Exception ex)
             {
-                throw new Exception("Ocorreu um erro durante a consulta do valores.", ex);
+                Console.WriteLine($"Erro na consulta: {ex.Message}");
+                return new List<MonitoramentoDTO>();
             }
         }
 
+        public void CadastrarDados(string json)
+        {
+            return;
+        }
     }
 }

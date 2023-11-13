@@ -44,6 +44,14 @@
               "target": "Package",
               "version": "[2.1.15, )"
             },
+            "MQTTnet": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "MQTTnet.Extensions.ManagedClient": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.3, )"

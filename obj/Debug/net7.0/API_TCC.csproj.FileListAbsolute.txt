@@ -57,3 +57,5 @@ C:\Users\Caio\source\repos\API_TCC v2\obj\Debug\net7.0\refint\API_TCC.dll
 C:\Users\Caio\source\repos\API_TCC v2\obj\Debug\net7.0\API_TCC.pdb
 C:\Users\Caio\source\repos\API_TCC v2\obj\Debug\net7.0\API_TCC.genruntimeconfig.cache
 C:\Users\Caio\source\repos\API_TCC v2\obj\Debug\net7.0\ref\API_TCC.dll
+C:\Users\Caio\source\repos\API_TCC v2\bin\Debug\net7.0\MQTTnet.dll
+C:\Users\Caio\source\repos\API_TCC v2\bin\Debug\net7.0\MQTTnet.Extensions.ManagedClient.dll
