@@ -21,7 +21,7 @@ namespace API_TCC.Services
         {
             try
             {
-                string query = $@"SELECT 1 FROM TCC.usuarios WHERE LOGIN = UPPER('{login}') AND SENHA = '{senha}'";
+                string query = $@"SELECT 1 FROM TCC.usuarios WHERE LOGIN = '{login}' AND SENHA = '{senha}'";
 
                 bool result = _context.UsuarioModel.FromSqlRaw(query).Any();
 
