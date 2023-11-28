@@ -20,7 +20,7 @@ namespace API_TCC.Services
         {
             try
             {
-                string query = "SELECT ID, DATA, UMIDADE, TEMPERATURA, PH, NITROGENIO, FOSFORO, POTASSIO, LUMINOSIDADE FROM TCC.MONITORAMENTO WHERE ROWNUM=1 ORDER BY ID DESC";
+                string query = "SELECT * FROM (SELECT id, DATA, UMIDADE, TEMPERATURA, PH, NITROGENIO, FOSFORO, POTASSIO, LUMINOSIDADE FROM TCC.MONITORAMENTO ORDER BY DATA DESC ) WHERE ROWNUM = 1";
 
                 List<MonitoramentoDTO> result = _context.MonitoramentoModel
                     .FromSqlRaw(query)
