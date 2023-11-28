@@ -15,6 +15,18 @@
           }
         }
       },
+      "JObject/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/JObject.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/JObject.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/7.0.3": {
         "type": "package",
         "dependencies": {
@@ -756,6 +768,18 @@
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml",
         "readme.md"
+      ]
+    },
+    "JObject/1.0.0": {
+      "sha512": "Z16S56kCKISB54p22yFsB9HKLCTEEEfZGi1NC62sJ7SWDZptcgmO3n6AhiUnOlho6Y8KfKKuNUayG9pIfQ05Hg==",
+      "type": "package",
+      "path": "jobject/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "jobject.1.0.0.nupkg.sha512",
+        "jobject.nuspec",
+        "lib/netcoreapp2.0/JObject.dll"
       ]
     },
     "Microsoft.AspNetCore.OpenApi/7.0.3": {
@@ -2012,6 +2036,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Dapper >= 2.1.15",
+      "JObject >= 1.0.0",
       "MQTTnet >= 3.1.2",
       "MQTTnet.Extensions.ManagedClient >= 3.1.2",
       "Microsoft.AspNetCore.OpenApi >= 7.0.3",
@@ -2065,6 +2090,10 @@
           "Dapper": {
             "target": "Package",
             "version": "[2.1.15, )"
+          },
+          "JObject": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "MQTTnet": {
             "target": "Package",

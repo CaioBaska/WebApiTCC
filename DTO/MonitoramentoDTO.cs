@@ -2,9 +2,14 @@
 {
     public class MonitoramentoDTO
     {
-        public int TEMPERATURA { get; set; }
-        public int PH { get; set; }
-        public int UMIDADE { get; set; }
-        public int LUMINOSIDADE { get; set; }
+        public string UMIDADE { get; set; } = "";
+        public string TEMPERATURA { get; set; } = "";
+        public string POTASSIO { get; set; } = "";
+        public string PH { get; set; } = "";
+        public string NITROGENIO { get; set; } = "";
+
+        public string FOSFORO { get; set; } = "";
+
+        public string LUMINOSIDADE { get; set; } = "";
     }
 }

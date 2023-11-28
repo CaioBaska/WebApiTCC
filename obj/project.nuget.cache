@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "QvZXkYvyuC/TfRgZXxgzDOEKHrPeCQBp5ghXT6/Kqm/JtN3V0aXZulGBvcKe+oyk09CYYHqil4YM91NxAq8Qsw==",
+  "dgSpecHash": "baNf4DoFeTn8Bds/be4966aKbwxJ/Cvf+NEjXD4lKwXj6AzX0ogY2ZV7X1Mx7iJ25seqy3m3bBas66L2dGz8PA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Caio\\source\\repos\\API_TCC v2\\API_TCC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Caio\\.nuget\\packages\\dapper\\2.1.15\\dapper.2.1.15.nupkg.sha512",
+    "C:\\Users\\Caio\\.nuget\\packages\\jobject\\1.0.0\\jobject.1.0.0.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.3\\microsoft.aspnetcore.openapi.7.0.3.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.3\\microsoft.entityframeworkcore.7.0.3.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.3\\microsoft.entityframeworkcore.abstractions.7.0.3.nupkg.sha512",

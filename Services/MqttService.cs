@@ -75,11 +75,15 @@ namespace API_TCC.Services
 
         private string ObterValoresJson(string json)
         {
-            var padrao = "(?:\\\"|\\')(?<key>[\\w\\d]+)(?:\\\"|\\')(?:\\:\\s*)(?:\\\"|\\')?(?<value>[\\w\\s-]*)(?:\\\"|\\')?";
-            var valores = Regex.Matches(json, padrao).ToList();
-            var valoresString = valores.Where(x => x.Value.Contains("mensagem")).Select(x => x.Value).ToList();
-            return "{ " + string.Join(',', valoresString.ToArray()) + " }";
+            var padrao = "(?:\\\"|\\')(?<key>[\\w\\d]+)(?:\\\"|\\')(?:\\:\\s*)(?:\\\"|\\')?(?<value>[\\w\\s.-]*)(?:\\\"|\\')?";
+            var valores = Regex.Matches(json, padrao)
+                .Select(match => $"{match.Groups["key"].Value}: {match.Groups["value"].Value}")
+                .Where(formatted => formatted.Contains("UMIDADE") || formatted.Contains("TEMPERATURA") || formatted.Contains("POTASSIO") || formatted.Contains("PH") || formatted.Contains("NITROGENIO") || formatted.Contains("FOSFORO"))
+                .ToList();
+
+            return "{ " + string.Join(',', valores.ToArray()) + " }";
         }
+
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {

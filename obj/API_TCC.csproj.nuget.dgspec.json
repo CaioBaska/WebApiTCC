@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[2.1.15, )"
             },
+            "JObject": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "MQTTnet": {
               "target": "Package",
               "version": "[3.1.2, )"
