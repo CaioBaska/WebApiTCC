@@ -23,7 +23,7 @@ namespace API_TCC.Controllers
             _plantasService = plantasService;
         }
 
-        [HttpPost("obterDadosPlantas")]
+        [HttpGet("obterDadosPlantas")]
 
         public IActionResult GetPlantaDados(string nomePlanta)
         {

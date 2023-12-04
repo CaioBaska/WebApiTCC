@@ -78,7 +78,5 @@ namespace API_TCC.Services
         }
 
 
-
-
     }
 }

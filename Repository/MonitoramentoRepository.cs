@@ -6,5 +6,6 @@ namespace API_TCC.Repositories
     {
         public List<MonitoramentoDTO> GetAllDados();
         public void CadastrarDados(string json);
+
     }
 }
