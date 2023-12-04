@@ -84,7 +84,6 @@ namespace API_TCC.Services
             return "{ " + string.Join(',', valores.ToArray()) + " }";
         }
 
-
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await _mqttClient.StartAsync(_mqttClientOptions);

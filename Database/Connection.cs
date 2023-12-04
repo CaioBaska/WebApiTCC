@@ -1,4 +1,5 @@
 ﻿using API_TCC.Model;
+using API_TCC.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -16,6 +17,7 @@ namespace API_TCC.Database
 
         public DbSet<UsuarioModel> UsuarioModel { get; set; }
         public DbSet<MonitoramentoModel> MonitoramentoModel { get; set; }
+        public DbSet<PlantasModel> PlantasModel { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,6 +32,7 @@ namespace API_TCC.Database
             modelBuilder.HasDefaultSchema("TCC");
             modelBuilder.Entity<UsuarioModel>().ToTable("USUARIOS");
             modelBuilder.Entity<MonitoramentoModel>().ToTable("MONITORAMENTO");
+            modelBuilder.Entity<PlantasModel>().ToTable("PLANTAS");
         }
     }
 }

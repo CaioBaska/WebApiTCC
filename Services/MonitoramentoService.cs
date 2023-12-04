@@ -52,23 +52,22 @@ namespace API_TCC.Services
             {
                 var valores = JObject.Parse(json);
 
-                // Definir a cultura para português do Brasil
+                
                 var cultura = new System.Globalization.CultureInfo("pt-BR");
 
-                // Crie uma instância da entidade MonitoramentoModel e atribua os valores
+                
                 var novoMonitoramento = new MonitoramentoModel
                 {
-                    DATA = DateTime.Now,  // Inserir a data atual
+                    DATA = DateTime.Now, 
                     UMIDADE = valores.ContainsKey("UMIDADE") ? valores["UMIDADE"].ToString() : "0",
                     TEMPERATURA = valores.ContainsKey("TEMPERATURA") ? valores["TEMPERATURA"].ToString() : "0",
                     POTASSIO = valores.ContainsKey("POTASSIO") ? valores["POTASSIO"].ToString() : "0",
                     PH = valores.ContainsKey("PH") ? valores["PH"].ToString() : "0",
                     NITROGENIO = valores.ContainsKey("NITROGENIO") ? valores["NITROGENIO"].ToString() : "0",
                     FOSFORO = valores.ContainsKey("FOSFORO") ? valores["FOSFORO"].ToString() : "0",
-                    LUMINOSIDADE = valores.ContainsKey("LUMINOSIDADE") ? valores["LUMINOSIDADE"].ToString() : "0"
                 };
 
-                // Adicione a nova entidade ao contexto e salve as alterações
+                
                 _context.MonitoramentoModel.Add(novoMonitoramento);
                 _context.SaveChanges();
             }
