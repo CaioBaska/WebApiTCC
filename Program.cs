@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<MonitoramentoService, MonitoramentoService>();
 builder.Services.AddScoped<PlantasService, PlantasService>();
 //builder.Services.AddSingleton<IMonitoramentoRepository>();
-builder.Services.AddHostedService<MeuServicoMqtt>();
+//builder.Services.AddHostedService<MeuServicoMqtt>();
 builder.Services.AddSingleton<OracleConnection>();
 builder.Services.AddSingleton<IPlantasRepository, PlantasService>();
 
