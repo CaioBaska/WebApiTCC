@@ -51,9 +51,9 @@ namespace API_TCC.Controllers
 
         [HttpPut("alteraSenha")]
 
-        public IActionResult AlteraSenha([FromBody]UsuarioModel usuarioModel) 
+        public IActionResult AlteraSenha(string login,string senha) 
         {
-            _usuarioService.AlteraSenha(usuarioModel.Login, usuarioModel.Senha);
+            _usuarioService.AlteraSenha(login,senha);
             return Ok();
         }
         [HttpGet("verificaLogin")]
