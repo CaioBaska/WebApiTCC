@@ -53,8 +53,19 @@ namespace API_TCC.Controllers
 
         public IActionResult AlteraSenha(string login,string senha) 
         {
-            _usuarioService.AlteraSenha(login,senha);
-            return Ok();
+           
+            bool result = _usuarioService.VerificaLogin(login);
+            if (result ==true) 
+            {
+                _usuarioService.AlteraSenha(login, senha);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+           
         }
         [HttpGet("verificaLogin")]
         public IActionResult VerificaLogin(string login)
