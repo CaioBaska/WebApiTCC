@@ -47,6 +47,34 @@ namespace API_TCC.Services
                 Console.WriteLine($"Erro ao criar login: {ex.Message}");
             }
         }
+        public void AlteraSenha(string login,string senha)
+        {
+            try
+            {
+                string query = $"UPDATE TCC.USUARIOS SET SENHA='{senha}' where LOGIN='{login}'";
+                _context.Database.ExecuteSqlRaw(query);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao criar login: {ex.Message}");
+            }
+        }
+
+        public bool VerificaLogin(string login)
+        {
+            try
+            {
+                string query = $"SELECT 1 FROM TCC.USUARIOS WHERE LOGIN='{login}'";
+                bool result = _context.UsuarioModel.FromSqlRaw(query).Any();
+                return result;
+            }
+            catch ( Exception ex ) 
+            {
+                Console.WriteLine($"Erro ao procurar login: {ex.Message}");
+                return false;
+            }
+        }
+
 
     }
 }

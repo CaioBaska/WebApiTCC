@@ -39,21 +39,6 @@ namespace API_TCC.Controllers
 
             return result ? Ok(result) : BadRequest("Credenciais inválidas");
 
-            //var connection = (OracleConnection)_context.Database.GetDbConnection();
-            //var service = new UsuarioService(connection);
-
-            //bool? valid = await Task.FromResult(service.ValidarLogin(usuario.Login, usuario.Senha));
-
-            //if (valid.HasValue && valid.Value)
-            //{
-            //    return Ok(true);
-            //    //return true;
-            //}
-            //else
-            //{
-            //    return BadRequest(false);
-            //    //return false;
-            //}
         }
 
         [HttpPost("criaLogin")]
@@ -64,6 +49,20 @@ namespace API_TCC.Controllers
             return CreatedAtAction(nameof(CriaLogin), null);
         }
 
+        [HttpPut("alteraSenha")]
+
+        public IActionResult AlteraSenha([FromBody]UsuarioModel usuarioModel) 
+        {
+            _usuarioService.AlteraSenha(usuarioModel.Login, usuarioModel.Senha);
+            return Ok();
+        }
+        [HttpGet("verificaLogin")]
+        public IActionResult VerificaLogin(string login)
+        {
+            bool result =_usuarioService.VerificaLogin(login);
+
+            return result ? Ok(result) : BadRequest("Usuário Inexistente");
+        }
 
     }
 
