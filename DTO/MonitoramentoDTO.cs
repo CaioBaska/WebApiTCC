@@ -2,6 +2,7 @@
 {
     public class MonitoramentoDTO
     {
+        public DateTime DATA { get; set; }
         public string UMIDADE { get; set; } = "";
         public string TEMPERATURA { get; set; } = "";
         public string POTASSIO { get; set; } = "";

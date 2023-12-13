@@ -7,5 +7,9 @@ namespace API_TCC.Repositories
         public List<MonitoramentoDTO> GetAllDados();
         public void CadastrarDados(string json);
 
+        public List<MonitoramentoDTO> GetDadosByData(DateTime dataInicial,DateTime dataFinal);
+
+
+
     }
 }

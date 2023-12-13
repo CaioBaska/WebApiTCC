@@ -1,3 +1,4 @@
+using API_TCC.Controllers;
 using API_TCC.Database;
 using API_TCC.Repositories;
 using API_TCC.Repository;
@@ -16,9 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuração de serviços
 //builder.Services.AddSingleton<OracleConnection>(_ => new OracleConnection(builder.Configuration.GetConnectionString("OracleConnection")));
 builder.Services.AddScoped<MonitoramentoService, MonitoramentoService>();
+//builder.Services.AddScoped<MonitoramentoController>();
 builder.Services.AddScoped<PlantasService, PlantasService>();
 //builder.Services.AddSingleton<IMonitoramentoRepository>();
 //builder.Services.AddHostedService<MeuServicoMqtt>();
+builder.Services.AddSingleton<MeuServicoMqtt>();
 builder.Services.AddSingleton<OracleConnection>();
 builder.Services.AddSingleton<IPlantasRepository, PlantasService>();
 

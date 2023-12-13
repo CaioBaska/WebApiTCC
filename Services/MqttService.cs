@@ -107,5 +107,40 @@ namespace API_TCC.Services
             await _mqttClient.StopAsync();
             await base.StopAsync(cancellationToken);
         }
+
+        public async Task SendMessageToTopicAsync(string host, int port, string username, string password, string topic, string message)
+        {
+            // Atualize as configurações do cliente MQTT, se necessário
+            _mqttOptionsBuilder
+                .WithClientId("smartgreen")
+                .WithTcpServer(host, port)
+                .WithCredentials(username, password);
+
+            // Atualize as opções do cliente MQTT e inicie o cliente, se ainda não estiver conectado
+       
+            var mqttClientOptions = new ManagedMqttClientOptionsBuilder()
+                .WithAutoReconnectDelay(TimeSpan.FromSeconds(60))
+                .WithClientOptions(_mqttOptionsBuilder.Build())
+                .Build();
+
+            await _mqttClient.StartAsync(mqttClientOptions);
+
+            // Inscreva-se nos tópicos necessários após a reconexão, se necessário
+            await _mqttClient.SubscribeAsync(new MqttTopicFilter
+            {
+                Topic = "smartgreen"
+            });
+            
+            // Publique a mensagem no tópico
+            var applicationMessage = new MqttApplicationMessageBuilder()
+                .WithTopic("smartgreen")
+                .WithPayload(message)
+                .WithAtMostOnceQoS()
+                .Build();
+
+            await _mqttClient.PublishAsync(applicationMessage);
+        }
+
+
     }
 }

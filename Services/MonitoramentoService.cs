@@ -4,6 +4,7 @@ using API_TCC.Database;
 using Microsoft.EntityFrameworkCore;
 using API_TCC.DTO;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace API_TCC.Services
 {
@@ -44,8 +45,6 @@ namespace API_TCC.Services
                 return new List<MonitoramentoDTO>();
             }
         }
-
-
         public void CadastrarDados(string json)
         {
             try
@@ -74,6 +73,39 @@ namespace API_TCC.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro ao cadastrar dados: {ex.Message}");
+            }
+        }
+
+        public List<MonitoramentoDTO> GetDadosByData(DateTime dataInicial, DateTime dataFinal)
+        {
+            try
+            {
+                //DateTime dataInicialConvertida = DateTime.ParseExact(dataInicial, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                //DateTime dataFinalConvertida = DateTime.ParseExact(dataFinal, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                string query = $"SELECT id, DATA, UMIDADE, TEMPERATURA, PH, NITROGENIO, FOSFORO, POTASSIO, LUMINOSIDADE FROM TCC.MONITORAMENTO WHERE DATA >= {dataInicial} AND DATA <= {dataFinal} ORDER BY DATA DESC";
+
+                List<MonitoramentoDTO> result = _context.MonitoramentoModel
+                    .FromSqlRaw(query)
+                    .Select(m => new MonitoramentoDTO
+                    {
+                        DATA = m.DATA,
+                        UMIDADE = m.UMIDADE,
+                        TEMPERATURA = m.TEMPERATURA,
+                        PH = m.PH,
+                        NITROGENIO = m.NITROGENIO,
+                        FOSFORO = m.FOSFORO,
+                        POTASSIO = m.POTASSIO,
+                        LUMINOSIDADE = m.LUMINOSIDADE
+                    })
+                    .ToList();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro na consulta: {ex.Message}");
+                return new List<MonitoramentoDTO>();
             }
         }
 
