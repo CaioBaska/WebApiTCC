@@ -57,7 +57,7 @@ namespace API_TCC.Controllers
             }
 
             // Aqui você pode chamar o serviço MQTT com o tópico fornecido.
-            await _meuServicoMqtt.SendMessageToTopicAsync("www.malu.recriart.online", 1883, "master", "mqtt12345", "smartgreen", mensagem);
+            await _meuServicoMqtt.SendMessageToTopicAsync(mensagem);
 
             return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
         }
