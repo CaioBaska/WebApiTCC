@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using API_TCC.DTO;
 using Newtonsoft.Json.Linq;
 using System.Globalization;
+using Microsoft.Data.SqlClient;
+
 
 namespace API_TCC.Services
 {
@@ -80,10 +82,11 @@ namespace API_TCC.Services
         {
             try
             {
-                //DateTime dataInicialConvertida = DateTime.ParseExact(dataInicial, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                //DateTime dataFinalConvertida = DateTime.ParseExact(dataFinal, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-                string query = $"SELECT id, DATA, UMIDADE, TEMPERATURA, PH, NITROGENIO, FOSFORO, POTASSIO, LUMINOSIDADE FROM TCC.MONITORAMENTO WHERE DATA >= {dataInicial} AND DATA <= {dataFinal} ORDER BY DATA DESC";
+                string query = $@"SELECT id, DATA, UMIDADE, TEMPERATURA, PH, NITROGENIO, FOSFORO, POTASSIO, LUMINOSIDADE 
+                          FROM TCC.MONITORAMENTO 
+                          WHERE DATA >= TO_DATE('{dataInicial.ToString("dd/MM/yyyy HH:mm:ss")}', 'DD/MM/YYYY HH24:MI:SS') 
+                            AND DATA <= TO_DATE('{dataFinal.ToString("dd/MM/yyyy HH:mm:ss")}', 'DD/MM/YYYY HH24:MI:SS') 
+                          ORDER BY DATA DESC";
 
                 List<MonitoramentoDTO> result = _context.MonitoramentoModel
                     .FromSqlRaw(query)
@@ -108,7 +111,6 @@ namespace API_TCC.Services
                 return new List<MonitoramentoDTO>();
             }
         }
-
 
     }
 }

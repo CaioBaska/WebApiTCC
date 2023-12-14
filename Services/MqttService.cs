@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using API_TCC.Services;
 using API_TCC.Repositories;
+using Microsoft.Extensions.Hosting;
 
 namespace API_TCC.Services
 {
@@ -18,6 +19,9 @@ namespace API_TCC.Services
         private readonly MqttClientOptionsBuilder _mqttOptionsBuilder;
         private readonly ManagedMqttClientOptions _mqttClientOptions;
         private readonly IManagedMqttClient _mqttClient;
+        private readonly MqttClientOptionsBuilder _mqttOptionsBuilder2;
+        private readonly ManagedMqttClientOptions _mqttClientOptions2;
+        private readonly IManagedMqttClient _mqttClient2;
         private readonly IMonitoramentoRepository _repository;
 
         public MeuServicoMqtt(ILogger<MeuServicoMqtt> logger, IMonitoramentoRepository repository)
@@ -37,6 +41,23 @@ namespace API_TCC.Services
 
             _mqttClient = new MqttFactory().CreateManagedMqttClient();
             ConfigureMqttHandlers();
+
+            _mqttClient2 = new MqttFactory().CreateManagedMqttClient();
+
+            // Atualize as configurações do cliente MQTT, se necessário
+            _mqttOptionsBuilder2 = new MqttClientOptionsBuilder()
+            .WithClientId("smartgreen")
+                .WithTcpServer("www.malu.recriart.online", 1883)
+                .WithCredentials("master", "mqtt12345");
+
+            // Atualize as opções do cliente MQTT e inicie o cliente, se ainda não estiver conectado
+
+            _mqttClientOptions2 = new ManagedMqttClientOptionsBuilder()
+                .WithAutoReconnectDelay(TimeSpan.FromSeconds(60))
+                .WithClientOptions(_mqttOptionsBuilder2.Build())
+                .Build();
+
+            _mqttClient2.StartAsync(_mqttClientOptions2).Wait();
         }
 
         private void ConfigureMqttHandlers()
@@ -108,25 +129,10 @@ namespace API_TCC.Services
             await base.StopAsync(cancellationToken);
         }
 
-        public async Task SendMessageToTopicAsync(string host, int port, string username, string password, string topic, string message)
+        public async Task SendMessageToTopicAsync(string message)
         {
-            // Atualize as configurações do cliente MQTT, se necessário
-            _mqttOptionsBuilder
-                .WithClientId("smartgreen")
-                .WithTcpServer(host, port)
-                .WithCredentials(username, password);
-
-            // Atualize as opções do cliente MQTT e inicie o cliente, se ainda não estiver conectado
-       
-            var mqttClientOptions = new ManagedMqttClientOptionsBuilder()
-                .WithAutoReconnectDelay(TimeSpan.FromSeconds(60))
-                .WithClientOptions(_mqttOptionsBuilder.Build())
-                .Build();
-
-            await _mqttClient.StartAsync(mqttClientOptions);
-
             // Inscreva-se nos tópicos necessários após a reconexão, se necessário
-            await _mqttClient.SubscribeAsync(new MqttTopicFilter
+            await _mqttClient2.SubscribeAsync(new MqttTopicFilter
             {
                 Topic = "smartgreen"
             });
@@ -138,7 +144,7 @@ namespace API_TCC.Services
                 .WithAtMostOnceQoS()
                 .Build();
 
-            await _mqttClient.PublishAsync(applicationMessage);
+            await _mqttClient2.PublishAsync(applicationMessage);
         }
 
 
