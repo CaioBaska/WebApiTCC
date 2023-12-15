@@ -41,23 +41,6 @@ namespace API_TCC.Services
 
             _mqttClient = new MqttFactory().CreateManagedMqttClient();
             ConfigureMqttHandlers();
-
-            _mqttClient2 = new MqttFactory().CreateManagedMqttClient();
-
-            // Atualize as configurações do cliente MQTT, se necessário
-            _mqttOptionsBuilder2 = new MqttClientOptionsBuilder()
-            .WithClientId("smartgreen")
-                .WithTcpServer("www.malu.recriart.online", 1883)
-                .WithCredentials("master", "mqtt12345");
-
-            // Atualize as opções do cliente MQTT e inicie o cliente, se ainda não estiver conectado
-
-            _mqttClientOptions2 = new ManagedMqttClientOptionsBuilder()
-                .WithAutoReconnectDelay(TimeSpan.FromSeconds(60))
-                .WithClientOptions(_mqttOptionsBuilder2.Build())
-                .Build();
-
-            _mqttClient2.StartAsync(_mqttClientOptions2).Wait();
         }
 
         private void ConfigureMqttHandlers()
@@ -128,25 +111,5 @@ namespace API_TCC.Services
             await _mqttClient.StopAsync();
             await base.StopAsync(cancellationToken);
         }
-
-        public async Task SendMessageToTopicAsync(string message)
-        {
-            // Inscreva-se nos tópicos necessários após a reconexão, se necessário
-            await _mqttClient2.SubscribeAsync(new MqttTopicFilter
-            {
-                Topic = "smartgreen"
-            });
-            
-            // Publique a mensagem no tópico
-            var applicationMessage = new MqttApplicationMessageBuilder()
-                .WithTopic("smartgreen")
-                .WithPayload(message)
-                .WithAtMostOnceQoS()
-                .Build();
-
-            await _mqttClient2.PublishAsync(applicationMessage);
-        }
-
-
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Caio\\source\\repos\\WebApiTCC\\API_TCC.csproj": {}
+    "C:\\Users\\Caio\\Desktop\\WebApiTCC-main\\API_TCC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Caio\\source\\repos\\WebApiTCC\\API_TCC.csproj": {
+    "C:\\Users\\Caio\\Desktop\\WebApiTCC-main\\API_TCC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Caio\\source\\repos\\WebApiTCC\\API_TCC.csproj",
+        "projectUniqueName": "C:\\Users\\Caio\\Desktop\\WebApiTCC-main\\API_TCC.csproj",
         "projectName": "API_TCC",
-        "projectPath": "C:\\Users\\Caio\\source\\repos\\WebApiTCC\\API_TCC.csproj",
+        "projectPath": "C:\\Users\\Caio\\Desktop\\WebApiTCC-main\\API_TCC.csproj",
         "packagesPath": "C:\\Users\\Caio\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Caio\\source\\repos\\WebApiTCC\\obj\\",
+        "outputPath": "C:\\Users\\Caio\\Desktop\\WebApiTCC-main\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Caio\\AppData\\Roaming\\NuGet\\NuGet.Config",

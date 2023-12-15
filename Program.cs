@@ -21,13 +21,14 @@ builder.Services.AddScoped<MonitoramentoService, MonitoramentoService>();
 builder.Services.AddScoped<PlantasService, PlantasService>();
 //builder.Services.AddSingleton<IMonitoramentoRepository>();
 //builder.Services.AddHostedService<MeuServicoMqtt>();
-builder.Services.AddSingleton<MeuServicoMqtt>();
+//builder.Services.AddSingleton<MeuServicoMqtt>();
 builder.Services.AddSingleton<OracleConnection>();
 builder.Services.AddSingleton<IPlantasRepository, PlantasService>();
 
 builder.Services.AddSingleton<IMonitoramentoRepository, MonitoramentoService>();
 builder.Services.AddSingleton<IUsuarioRepository, UsuarioService>();
 builder.Services.AddScoped<UsuarioService, UsuarioService>();
+//builder.Services.AddSingleton<IServiceEnvioMqtt, ServiceEnvioMqtt>();
 
 builder.Services.AddSwaggerGen(c =>
 {

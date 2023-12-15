@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b+8K8CyYmyne85CpOcWjJpp1lwssPJ+9F0xlmw0WqlWFQkF5AKI60GxoAuOUtpjoiXCZ3bActnrq8wzVqLWuIQ==",
+  "dgSpecHash": "e67CP7fQMfuzyBpg2c6B3t4fLzIdPj5Uoxm1lV+GNsZ/OhYgsqPg8HVk47s3yVacPN0Zv2bWm0N/aMaVWxaEiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Caio\\source\\repos\\WebApiTCC\\API_TCC.csproj",
+  "projectFilePath": "C:\\Users\\Caio\\Desktop\\WebApiTCC-main\\API_TCC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Caio\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Caio\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

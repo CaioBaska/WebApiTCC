@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using API_TCC.Database;
 using API_TCC.DTO;
 using System.Globalization;
+using API_TCC.Repository;
 
 namespace API_TCC.Controllers
 {
@@ -17,14 +18,14 @@ namespace API_TCC.Controllers
         private readonly MyDbContext _context;
         private readonly MonitoramentoService _monitoramentoService;
         private readonly IMonitoramentoRepository _repository;
-        private readonly MeuServicoMqtt _meuServicoMqtt;
+        //private readonly IServiceEnvioMqtt _meuServicoMqtt;
 
-        public MonitoramentoController(MyDbContext context, IMonitoramentoRepository repository, MonitoramentoService monitoramentoService, MeuServicoMqtt meuServicoMqtt)
+        public MonitoramentoController(MyDbContext context, IMonitoramentoRepository repository, MonitoramentoService monitoramentoService /*IServiceEnvioMqtt meuServicoMqtt*/)
         {
             _context = context;
             _repository = repository;
             _monitoramentoService = monitoramentoService;
-            _meuServicoMqtt = meuServicoMqtt;
+            //_meuServicoMqtt = meuServicoMqtt;
         }
 
         [HttpGet("obterDados")]
@@ -60,19 +61,19 @@ namespace API_TCC.Controllers
 
 
 
-        [HttpGet("mandarTopicoMqtt")]
-        public async Task<IActionResult> GetDadosPorTopico(string mensagem)
-        {
-            if (string.IsNullOrEmpty(mensagem))
-            {
-                return BadRequest("O parâmetro 'mensagem' não pode ser nulo ou vazio.");
-            }
+        //[HttpGet("mandarTopicoMqtt")]
+        //public async Task<IActionResult> GetDadosPorTopico(string mensagem)
+        //{
+        //    if (string.IsNullOrEmpty(mensagem))
+        //    {
+        //        return BadRequest("O parâmetro 'mensagem' não pode ser nulo ou vazio.");
+        //    }
 
-            // Aqui você pode chamar o serviço MQTT com o tópico fornecido.
-            await _meuServicoMqtt.SendMessageToTopicAsync(mensagem);
+        //    // Aqui você pode chamar o serviço MQTT com o tópico fornecido.
+        //    _meuServicoMqtt.PublicarMensagem(mensagem);
 
-            return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
-        }
+        //    return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
+        //}
 
 
     }
