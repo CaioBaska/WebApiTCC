@@ -18,14 +18,14 @@ namespace API_TCC.Controllers
         private readonly MyDbContext _context;
         private readonly MonitoramentoService _monitoramentoService;
         private readonly IMonitoramentoRepository _repository;
-        //private readonly IServiceEnvioMqtt _meuServicoMqtt;
+        private readonly ServiceEnvioMqtt _meuServicoEnviaMqtt;
 
-        public MonitoramentoController(MyDbContext context, IMonitoramentoRepository repository, MonitoramentoService monitoramentoService /*IServiceEnvioMqtt meuServicoMqtt*/)
+        public MonitoramentoController(MyDbContext context, IMonitoramentoRepository repository, MonitoramentoService monitoramentoService, ServiceEnvioMqtt meuServicoEnviaMqtt)
         {
             _context = context;
             _repository = repository;
             _monitoramentoService = monitoramentoService;
-            //_meuServicoMqtt = meuServicoMqtt;
+            _meuServicoEnviaMqtt = meuServicoEnviaMqtt;
         }
 
         [HttpGet("obterDados")]
@@ -51,6 +51,9 @@ namespace API_TCC.Controllers
 
                 List<MonitoramentoDTO> dados = _monitoramentoService.GetDadosByData(dataInicialFormatada, dataFinalFormatada);
 
+                // Formate as datas antes de retornar a resposta
+                dados.ForEach(d => d.DataFormatada = d.DATA.ToString("dd/MM/yyyy HH:mm:ss"));
+
                 return Ok(dados);
             }
             else
@@ -61,19 +64,19 @@ namespace API_TCC.Controllers
 
 
 
-        //[HttpGet("mandarTopicoMqtt")]
-        //public async Task<IActionResult> GetDadosPorTopico(string mensagem)
-        //{
-        //    if (string.IsNullOrEmpty(mensagem))
-        //    {
-        //        return BadRequest("O parâmetro 'mensagem' não pode ser nulo ou vazio.");
-        //    }
+        [HttpGet("mandarTopicoMqtt")]
+        public async Task<IActionResult> SendDadosPorTopico(string mensagem)
+        {
+            if (string.IsNullOrEmpty(mensagem))
+            {
+                return BadRequest("O parâmetro 'mensagem' não pode ser nulo ou vazio.");
+            }
 
-        //    // Aqui você pode chamar o serviço MQTT com o tópico fornecido.
-        //    _meuServicoMqtt.PublicarMensagem(mensagem);
+            // Aqui você pode chamar o serviço MQTT com o tópico fornecido.
+            _meuServicoEnviaMqtt.PublicarMensagem(mensagem);
 
-        //    return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
-        //}
+            return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
+        }
 
 
     }

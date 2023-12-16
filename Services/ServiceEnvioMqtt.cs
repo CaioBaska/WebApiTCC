@@ -38,7 +38,7 @@ namespace API_TCC.Services
         public async void PublicarMensagem(string mensagem)
         {
             var applicationMessage = new MqttApplicationMessageBuilder()
-                .WithTopic("smartgreen")
+                .WithTopic("EnviaSmart")
                 .WithPayload(mensagem)
                 .Build();
 

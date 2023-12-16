@@ -12,5 +12,7 @@
         public string? FOSFORO { get; set; } 
 
         public string? LUMINOSIDADE { get; set; }
+
+        public string DataFormatada { get; set; }
     }
 }

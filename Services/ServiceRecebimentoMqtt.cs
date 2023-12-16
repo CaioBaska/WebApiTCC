@@ -89,7 +89,7 @@ namespace API_TCC.Services
             await _mqttClient.SubscribeAsync(
                 new MqttTopicFilter
                 {
-                    Topic = "smartgreen/topic"
+                    Topic = "RecebeSmart"
                 }
             );
 
