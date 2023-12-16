@@ -21,7 +21,7 @@ namespace API_TCC.Services
 
             var mqttClientOptions = new MqttClientOptionsBuilder()
             .WithClientId("smartgreen")
-                .WithTcpServer("www.malu.recriart.online", 1883)
+                .WithTcpServer("152.67.55.77", 1883)
                 .WithCredentials("master", "mqtt12345").Build();
 
             var response = await _mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
