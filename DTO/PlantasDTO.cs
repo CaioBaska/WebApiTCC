@@ -13,6 +13,8 @@
         public string PH { get; set; } = "";
         public string POTASSIO { get; set; } = "";
 
-        
+        public string LUMINOSIDADE { get; set; } = "";
+
+
     }
 }

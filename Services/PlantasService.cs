@@ -19,7 +19,7 @@ namespace API_TCC.Services
         {
             try
             {
-                string query = $"SELECT TEMPERATURA, UMIDADE, NITROGENIO, FOSFORO, PH, POTASSIO FROM TCC.PLANTAS WHERE NOME_PLANTA='{nomePlanta}'";
+                string query = $"SELECT TEMPERATURA, UMIDADE, NITROGENIO, FOSFORO, PH, POTASSIO,LUMINOSIDADE FROM TCC.PLANTAS WHERE NOME_PLANTA='{nomePlanta}'";
 
                 List<PlantasDTO> result = _context.PlantasModel
                     .FromSqlRaw(query)
@@ -31,6 +31,7 @@ namespace API_TCC.Services
                         FOSFORO = p.FOSFORO,
                         PH = p.PH,
                         POTASSIO = p.POTASSIO,
+                        LUMINOSIDADE= p.LUMINOSIDADE,
                     })
                     .ToList();
 
