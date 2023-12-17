@@ -78,7 +78,7 @@ namespace API_TCC.Services
             }
         }
 
-        public List<MonitoramentoDTO> GetDadosByData(DateTime dataInicial, DateTime dataFinal)
+        public List<RelatorioDTO> GetDadosByData(DateTime dataInicial, DateTime dataFinal)
         {
             try
             {
@@ -88,11 +88,11 @@ namespace API_TCC.Services
                             AND DATA <= TO_DATE('{dataFinal.ToString("dd/MM/yyyy HH:mm:ss")}', 'DD/MM/YYYY HH24:MI:SS') 
                           ORDER BY DATA DESC";
 
-                List<MonitoramentoDTO> result = _context.MonitoramentoModel
+                List<RelatorioDTO> result = _context.MonitoramentoModel
                     .FromSqlRaw(query)
-                    .Select(m => new MonitoramentoDTO
+                    .Select(m => new RelatorioDTO
                     {
-                        DATA = m.DATA,
+                        DataFormatada = m.DATA.ToString("dd/MM/yyyy HH:mm:ss"),
                         UMIDADE = m.UMIDADE,
                         TEMPERATURA = m.TEMPERATURA,
                         PH = m.PH,
@@ -108,7 +108,7 @@ namespace API_TCC.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro na consulta: {ex.Message}");
-                return new List<MonitoramentoDTO>();
+                return new List<RelatorioDTO>();
             }
         }
 

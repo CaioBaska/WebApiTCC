@@ -49,10 +49,8 @@ namespace API_TCC.Controllers
             {
                 // Agora você pode usar dataInicialFormatada e dataFinalFormatada em sua lógica.
 
-                List<MonitoramentoDTO> dados = _monitoramentoService.GetDadosByData(dataInicialFormatada, dataFinalFormatada);
+                List<RelatorioDTO> dados = _monitoramentoService.GetDadosByData(dataInicialFormatada, dataFinalFormatada);
 
-                // Formate as datas antes de retornar a resposta
-                dados.ForEach(d => d.DataFormatada = d.DATA.ToString("dd/MM/yyyy HH:mm:ss"));
 
                 return Ok(dados);
             }

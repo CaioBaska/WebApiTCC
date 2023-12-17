@@ -1,14 +1,8 @@
-using API_TCC.Controllers;
 using API_TCC.Database;
 using API_TCC.Repositories;
 using API_TCC.Repository;
 using API_TCC.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Oracle.ManagedDataAccess.Client;
 
