@@ -32,6 +32,21 @@ namespace API_TCC.Controllers
             List<PlantasDTO> dados = _plantasService.GetDadosPlantas(nomePlanta);
             return Ok(dados);
         }
+
+        [HttpGet("cadastrarPlanta")]
+        public IActionResult CreatePlantaDados(string nomePlanta, string temperatura, string umidade,string nitrogenio, string fosforo, string PH, string potassio, string luminosidade)
+        {
+            if (string.IsNullOrEmpty(nomePlanta) || string.IsNullOrEmpty(temperatura) || string.IsNullOrEmpty(umidade) ||
+                string.IsNullOrEmpty(nitrogenio) || string.IsNullOrEmpty(fosforo) || string.IsNullOrEmpty(PH) || string.IsNullOrEmpty(potassio) || string.IsNullOrEmpty(luminosidade))
+            {
+                return BadRequest("Todos os parâmetros devem ser fornecidos.");
+            }
+
+            _plantasService.CreateDadosPlantas(nomePlanta, temperatura, umidade, nitrogenio, fosforo, PH, potassio, luminosidade);
+
+            return Ok();
+        }
+
     }
 
 }

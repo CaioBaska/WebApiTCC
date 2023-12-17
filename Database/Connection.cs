@@ -1,7 +1,9 @@
 ﻿using API_TCC.Model;
 using API_TCC.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Oracle.ManagedDataAccess.Client;
 
 namespace API_TCC.Database
 {
@@ -18,6 +20,24 @@ namespace API_TCC.Database
         public DbSet<UsuarioModel> UsuarioModel { get; set; }
         public DbSet<MonitoramentoModel> MonitoramentoModel { get; set; }
         public DbSet<PlantasModel> PlantasModel { get; set; }
+
+        public void AtualizaPlantas(string temperatura, string umidade, string nitrogenio,string fosforo, string pH, string potassio,string luminosidade, string nomePlanta)
+        {
+            Database.ExecuteSqlRaw(
+                "BEGIN TCC.ATUALIZA_PLANTAS (" +
+                ":p_TEMPERATURA, :p_UMIDADE, :p_NITROGENIO, :p_FOSFORO, " +
+                ":p_PH, :p_POTASSIO, :p_LUMINOSIDADE, :p_nome_planta); END;",
+                new OracleParameter("p_TEMPERATURA", temperatura),
+                new OracleParameter("p_UMIDADE", umidade),
+                new OracleParameter("p_NITROGENIO", nitrogenio),
+                new OracleParameter("p_FOSFORO", fosforo),
+                new OracleParameter("p_PH", pH),
+                new OracleParameter("p_POTASSIO", potassio),
+                new OracleParameter("p_LUMINOSIDADE", luminosidade),
+                new OracleParameter("p_nome_planta", nomePlanta));
+        }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

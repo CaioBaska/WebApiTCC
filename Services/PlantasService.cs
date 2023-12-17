@@ -43,5 +43,17 @@ namespace API_TCC.Services
             }
         }
 
+        public void CreateDadosPlantas(string nomePlanta, string temperatura, string umidade,string nitrogenio, string fosforo, string pH, string potassio, string luminosidade)
+        {
+            try
+            {
+                _context.AtualizaPlantas(temperatura, umidade, nitrogenio, fosforo, pH, potassio, luminosidade, nomePlanta);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro na consulta: {ex.Message}");
+            }
+        }
+
     }
 }
