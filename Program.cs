@@ -14,7 +14,7 @@ builder.Services.AddScoped<MonitoramentoService, MonitoramentoService>();
 //builder.Services.AddScoped<MonitoramentoController>();
 builder.Services.AddScoped<PlantasService, PlantasService>();
 //builder.Services.AddSingleton<IMonitoramentoRepository>();
-//builder.Services.AddHostedService<MeuServicoMqtt>();
+//builder.Services.AddHostedService<MeuServicoMqtt>();  //ATIVAR OU DESATIVAR DEPENDENDO
 //builder.Services.AddHostedService<ServiceRecebimentoMqtt>();
 //builder.Services.AddSingleton<MeuServicoMqtt>();
 builder.Services.AddSingleton<OracleConnection>();

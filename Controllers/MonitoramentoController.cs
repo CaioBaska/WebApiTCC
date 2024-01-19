@@ -76,6 +76,30 @@ namespace API_TCC.Controllers
             return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
         }
 
+        [HttpGet("enviarRelatorioEmail")]
+        public IActionResult SendEmailByData(string dataInicial, string dataFinal,string destinatario)
+        {
+            DateTime dataInicialFormatada, dataFinalFormatada;
+
+            if (DateTime.TryParseExact(dataInicial, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataInicialFormatada) &&
+                DateTime.TryParseExact(dataFinal, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataFinalFormatada))
+            {
+                // Agora você pode usar dataInicialFormatada e dataFinalFormatada em sua lógica.
+
+                List<RelatorioDTO> dados = _monitoramentoService.GetDadosByData(dataInicialFormatada, dataFinalFormatada);
+
+
+                var csvContent=_monitoramentoService.GerarConteudoCSV(dados);
+
+               _monitoramentoService.EnviarEmail(destinatario, csvContent);
+
+                return Ok("eita");
+            }
+            else
+            {
+                return BadRequest("Formato de data inválido. Use o formato dd/MM/yyyy HH:mm:ss");
+            }
+        }
 
     }
 }

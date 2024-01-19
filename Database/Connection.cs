@@ -1,6 +1,5 @@
 ﻿using API_TCC.Model;
 using API_TCC.Models;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Oracle.ManagedDataAccess.Client;

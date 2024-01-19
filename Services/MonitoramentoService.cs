@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using API_TCC.DTO;
 using Newtonsoft.Json.Linq;
 using System.Globalization;
-using Microsoft.Data.SqlClient;
+using System.Net.Mail;
+using System.Net;
+using System.Text;
+using CsvHelper;
 
 
 namespace API_TCC.Services
@@ -18,7 +21,6 @@ namespace API_TCC.Services
         {
             _context = context;
         }
-
         public List<MonitoramentoDTO> GetAllDados()
         {
             try
@@ -66,6 +68,7 @@ namespace API_TCC.Services
                     PH = valores.ContainsKey("PH") ? valores["PH"].ToString() : "0",
                     NITROGENIO = valores.ContainsKey("NITROGENIO") ? valores["NITROGENIO"].ToString() : "0",
                     FOSFORO = valores.ContainsKey("FOSFORO") ? valores["FOSFORO"].ToString() : "0",
+                    LUMINOSIDADE = valores.ContainsKey("LUMINOSIDADE") ? valores["LUMINOSIDADE"].ToString() : "0",
                 };
 
                 
@@ -77,7 +80,6 @@ namespace API_TCC.Services
                 Console.WriteLine($"Erro ao cadastrar dados: {ex.Message}");
             }
         }
-
         public List<RelatorioDTO> GetDadosByData(DateTime dataInicial, DateTime dataFinal)
         {
             try
@@ -85,7 +87,7 @@ namespace API_TCC.Services
                 string query = $@"SELECT id, DATA, UMIDADE, TEMPERATURA, PH, NITROGENIO, FOSFORO, POTASSIO, LUMINOSIDADE 
                           FROM TCC.MONITORAMENTO 
                           WHERE DATA >= TO_DATE('{dataInicial.ToString("dd/MM/yyyy HH:mm:ss")}', 'DD/MM/YYYY HH24:MI:SS') 
-                            AND DATA <= TO_DATE('{dataFinal.ToString("dd/MM/yyyy HH:mm:ss")}', 'DD/MM/YYYY HH24:MI:SS') 
+                            AND DATA < TO_DATE('{dataFinal.ToString("dd/MM/yyyy HH:mm:ss")}', 'DD/MM/YYYY HH24:MI:SS') 
                           ORDER BY DATA DESC";
 
                 List<RelatorioDTO> result = _context.MonitoramentoModel
@@ -109,6 +111,49 @@ namespace API_TCC.Services
             {
                 Console.WriteLine($"Erro na consulta: {ex.Message}");
                 return new List<RelatorioDTO>();
+            }
+        }
+        public void EnviarEmail(string destinatario, string anexoCsv)
+        {
+            try
+            {
+                var fromEmail = "nuggetsaplaysbr@gmail.com";
+                var password = "kipxirewgfwwifsm";
+
+                var message = new MailMessage();
+                message.From = new MailAddress(fromEmail);
+                message.Subject = "Relatório SmartGreen";
+                message.To.Add(new MailAddress(destinatario));
+                message.Body = "Em anexo está o relatório CSV gerado.";
+
+                Attachment attachment = new Attachment(new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(anexoCsv)), "relatorio.csv", "text/csv");
+                message.Attachments.Add(attachment);
+
+                using (SmtpClient client = new SmtpClient("smtp.gmail.com",587))
+                {
+                    client.EnableSsl = true;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new NetworkCredential(fromEmail, password);
+                    client.Send(message);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao enviar o e-mail: {ex.Message}");
+                // Você pode tratar o erro conforme necessário (por exemplo, lançar uma exceção personalizada).
+            }
+        }
+        public string GerarConteudoCSV(List<RelatorioDTO> dadosRelatorio)
+        {
+            // Usa o StringWriter para escrever o conteúdo CSV na memória
+            using (var writer = new StringWriter())
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                // Escreve os dados no CSV
+                csv.WriteRecords(dadosRelatorio);
+                return writer.ToString();
             }
         }
 

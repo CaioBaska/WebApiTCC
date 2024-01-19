@@ -82,7 +82,7 @@ namespace API_TCC.Services
             var padrao = "(?:\\\"|\\')(?<key>[\\w\\d]+)(?:\\\"|\\')(?:\\:\\s*)(?:\\\"|\\')?(?<value>[\\w\\s.-]*)(?:\\\"|\\')?";
             var valores = Regex.Matches(json, padrao)
                 .Select(match => $"{match.Groups["key"].Value}: {match.Groups["value"].Value}")
-                .Where(formatted => formatted.Contains("UMIDADE") || formatted.Contains("TEMPERATURA") || formatted.Contains("POTASSIO") || formatted.Contains("PH") || formatted.Contains("NITROGENIO") || formatted.Contains("FOSFORO"))
+                .Where(formatted => formatted.Contains("UMIDADE") || formatted.Contains("TEMPERATURA") || formatted.Contains("POTASSIO") || formatted.Contains("PH") || formatted.Contains("NITROGENIO") || formatted.Contains("FOSFORO") || formatted.Contains("LUMINOSIDADE"))
                 .ToList();
 
             return "{ " + string.Join(',', valores.ToArray()) + " }";
