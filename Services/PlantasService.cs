@@ -54,14 +54,14 @@ namespace API_TCC.Services
                 Console.WriteLine($"Erro na consulta: {ex.Message}");
             }
         }
-        public List<string> GetAllPlantas()
+        public List<string> GetPlantasPersonalizadas()
         {
             try
             {
-                string query = $"SELECT NOME_PLANTA FROM TCC.PLANTAS";
+                string query = $"SELECT NOME_PLANTA FROM TCC.PLANTAS where NOME_PLANTA NOT IN ('BATATA','REPOLHO','TOMATE','HORTELA') ";
 
 
-                List<string> result = _context.PlantasModel.Select(p => p.NOME_PLANTA).ToList();
+                List<string> result = _context.PlantasModel.FromSqlRaw(query).Select(p => p.NOME_PLANTA).ToList();
 
                 return result;
                     

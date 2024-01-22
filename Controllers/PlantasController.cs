@@ -24,7 +24,6 @@ namespace API_TCC.Controllers
         }
 
         [HttpGet("obterDadosPlantas")]
-
         public IActionResult GetPlantaDados(string nomePlanta)
         {
 
@@ -48,14 +47,13 @@ namespace API_TCC.Controllers
         }
 
 
-        [HttpGet("obterTodasPlantas")]
-
-        public IActionResult GetAllPlantas()
+        [HttpGet("obterTodasPlantasPersonalizadas")]
+        public IActionResult GetAllPlantasPersonalizadas()
         {
 
-
-            List<string> dados = _plantasService.GetAllPlantas();
+            List<string> dados = _plantasService.GetPlantasPersonalizadas();
             return Ok(dados);
+
         }
 
     }
