@@ -18,14 +18,14 @@ namespace API_TCC.Controllers
         private readonly MyDbContext _context;
         private readonly MonitoramentoService _monitoramentoService;
         private readonly IMonitoramentoRepository _repository;
-        //private readonly ServiceEnvioMqtt _meuServicoEnviaMqtt;
+        private readonly ServiceEnvioMqtt _meuServicoEnviaMqtt;
 
-        public MonitoramentoController(MyDbContext context, IMonitoramentoRepository repository, MonitoramentoService monitoramentoService/*, ServiceEnvioMqtt meuServicoEnviaMqtt*/)
+        public MonitoramentoController(MyDbContext context, IMonitoramentoRepository repository, MonitoramentoService monitoramentoService, ServiceEnvioMqtt meuServicoEnviaMqtt)
         {
             _context = context;
             _repository = repository;
             _monitoramentoService = monitoramentoService;
-            //_meuServicoEnviaMqtt = meuServicoEnviaMqtt;
+            _meuServicoEnviaMqtt = meuServicoEnviaMqtt;
         }
 
         [HttpGet("obterDados")]
@@ -62,19 +62,19 @@ namespace API_TCC.Controllers
 
 
 
-        //[HttpGet("mandarTopicoMqtt")]
-        //public async Task<IActionResult> SendDadosPorTopico(string mensagem)
-        //{
-        //    if (string.IsNullOrEmpty(mensagem))
-        //    {
-        //        return BadRequest("O parâmetro 'mensagem' não pode ser nulo ou vazio.");
-        //    }
+        [HttpGet("mandarTopicoMqtt")]
+        public async Task<IActionResult> SendDadosPorTopico(string mensagem)
+        {
+            if (string.IsNullOrEmpty(mensagem))
+            {
+                return BadRequest("O parâmetro 'mensagem' não pode ser nulo ou vazio.");
+            }
 
-        //    // Aqui você pode chamar o serviço MQTT com o tópico fornecido.
-        //    _meuServicoEnviaMqtt.PublicarMensagem(mensagem);
+            // Aqui você pode chamar o serviço MQTT com o tópico fornecido.
+            _meuServicoEnviaMqtt.PublicarMensagem(mensagem);
 
-        //    return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
-        //}
+            return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
+        }
 
         [HttpGet("enviarRelatorioEmail")]
         public IActionResult SendEmailByData(string dataInicial, string dataFinal,string destinatario)
