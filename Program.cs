@@ -23,7 +23,7 @@ builder.Services.AddSingleton<IPlantasRepository, PlantasService>();
 builder.Services.AddSingleton<IMonitoramentoRepository, MonitoramentoService>();
 builder.Services.AddSingleton<IUsuarioRepository, UsuarioService>();
 builder.Services.AddScoped<UsuarioService, UsuarioService>();
-builder.Services.AddSingleton<ServiceEnvioMqtt, ServiceEnvioMqtt>();
+//builder.Services.AddSingleton<ServiceEnvioMqtt, ServiceEnvioMqtt>();
 
 builder.Services.AddSwaggerGen(c =>
 {

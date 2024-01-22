@@ -47,6 +47,17 @@ namespace API_TCC.Controllers
             return Ok();
         }
 
+
+        [HttpGet("obterTodasPlantas")]
+
+        public IActionResult GetAllPlantas()
+        {
+
+
+            List<string> dados = _plantasService.GetAllPlantas();
+            return Ok(dados);
+        }
+
     }
 
 }

@@ -54,6 +54,24 @@ namespace API_TCC.Services
                 Console.WriteLine($"Erro na consulta: {ex.Message}");
             }
         }
+        public List<string> GetAllPlantas()
+        {
+            try
+            {
+                string query = $"SELECT NOME_PLANTA FROM TCC.PLANTAS";
+
+
+                List<string> result = _context.PlantasModel.Select(p => p.NOME_PLANTA).ToList();
+
+                return result;
+                    
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro na consulta: {ex.Message}");
+                return new List<string>();
+            }
+        }
 
     }
 }
