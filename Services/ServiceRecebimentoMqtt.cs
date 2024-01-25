@@ -6,6 +6,8 @@ using MQTTnet.Extensions.ManagedClient;
 using MQTTnet;
 using System.Text.RegularExpressions;
 using System.Text;
+using API_TCC.DTO;
+using System.Globalization;
 
 namespace API_TCC.Services
 {
@@ -19,6 +21,7 @@ namespace API_TCC.Services
         private readonly ManagedMqttClientOptions _mqttClientOptions2;
         private readonly IManagedMqttClient _mqttClient2;
         private readonly IMonitoramentoRepository _repository;
+        private readonly MonitoramentoService _monitoramentoService;
 
         public ServiceRecebimentoMqtt(ILogger<MeuServicoMqtt> logger, IMonitoramentoRepository repository)
         {
@@ -37,6 +40,8 @@ namespace API_TCC.Services
 
             _mqttClient = new MqttFactory().CreateManagedMqttClient();
             ConfigureMqttHandlers();
+            
+
         }
 
         private void ConfigureMqttHandlers()
@@ -51,10 +56,33 @@ namespace API_TCC.Services
         private void HandleReceivedMessage(MqttApplicationMessageReceivedEventArgs args)
         {
             var payloadText = Encoding.UTF8.GetString(args.ApplicationMessage.Payload ?? Array.Empty<byte>());
-            var valores = ObterValoresJson(payloadText);
 
-            Console.WriteLine(valores);
+            string[] valores = payloadText.Split(',');
+
+            if (valores.Length == 3)
+            {
+                string primeiroValor = valores[0].Trim();
+                string segundoValor = valores[1].Trim();
+                string terceiroValor = valores[2].Trim();
+
+                if (DateTime.TryParseExact(primeiroValor, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dataInicial) &&
+                    DateTime.TryParseExact(segundoValor, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dataFinal))
+                {
+                    List<RelatorioDTO> dados = _repository.GetDadosByData(dataInicial, dataFinal);
+
+                    var csvContent = _repository.GerarConteudoCSV(dados);
+                }
+                else
+                {
+                    Console.WriteLine("Formato de data inválido. Esperado: 'dd/MM/yyyy HH:mm:ss'");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Formato de string inválido. Esperado: 'valor1,valor2'");
+            }
         }
+
 
         private void OnConnected(MqttClientConnectedEventArgs obj)
         {
@@ -89,7 +117,7 @@ namespace API_TCC.Services
             await _mqttClient.SubscribeAsync(
                 new MqttTopicFilter
                 {
-                    Topic = "RecebeSmart"
+                    Topic = "EnviaRelatorio"
                 }
             );
 

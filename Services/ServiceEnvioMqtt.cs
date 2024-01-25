@@ -44,5 +44,15 @@ namespace API_TCC.Services
 
             await _mqttClient.PublishAsync(applicationMessage);
         }
+
+        public async void PublicarRelatorio(string mensagem)
+        {
+            var applicationMessage = new MqttApplicationMessageBuilder()
+                .WithTopic("EnviaRelatorio")
+                .WithPayload(mensagem)
+                .Build();
+
+            await _mqttClient.PublishAsync(applicationMessage);
+        }
     }
 }

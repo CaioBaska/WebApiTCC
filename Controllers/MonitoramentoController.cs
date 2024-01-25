@@ -76,6 +76,20 @@ namespace API_TCC.Controllers
             return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
         }
 
+        [HttpGet("mandarRelatorioMqtt")]
+        public async Task<IActionResult> SendRelatorioPorTopico(string mensagem)
+        {
+            if (string.IsNullOrEmpty(mensagem))
+            {
+                return BadRequest("O parâmetro 'mensagem' não pode ser nulo ou vazio.");
+            }
+
+            // Aqui você pode chamar o serviço MQTT com o tópico fornecido.
+            _meuServicoEnviaMqtt.PublicarRelatorio(mensagem);
+
+            return Ok($"Dados enviados para o tópico smartgreen: {mensagem}");
+        }
+
         [HttpGet("enviarRelatorioEmail")]
         public IActionResult SendEmailByData(string dataInicial, string dataFinal,string destinatario)
         {
@@ -92,6 +106,7 @@ namespace API_TCC.Controllers
                 var csvContent=_monitoramentoService.GerarConteudoCSV(dados);
 
                _monitoramentoService.EnviarEmail(destinatario, csvContent);
+
 
                 return Ok("eita");
             }
