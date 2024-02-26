@@ -32,6 +32,29 @@ namespace API_TCC.Controllers
             return Ok(dados);
         }
 
+        [HttpDelete("deletarDadosPlantasPorNome")]
+        public IActionResult DeletePlantaByNome(string nomePlanta)
+        {
+            if (nomePlanta != "HORTELA" && nomePlanta != "TOMATE" && nomePlanta != "REPOLHO" && nomePlanta != "BATATA")
+            {
+                var planta = _context.PlantasModel.FirstOrDefault(p => p.NOME_PLANTA == nomePlanta);
+                if (planta == null)
+                {
+                    return NotFound();
+                }
+
+                _context.PlantasModel.Remove(planta);
+                _context.SaveChanges();
+
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest("Não é possível deletar os valores padrão");
+            }
+
+        }
+
         [HttpGet("cadastrarPlanta")]
         public IActionResult CreatePlantaDados(string nomePlanta, string temperatura, string umidade,string nitrogenio, string fosforo, string PH, string potassio, string luminosidade)
         {

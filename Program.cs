@@ -14,9 +14,8 @@ builder.Services.AddScoped<MonitoramentoService, MonitoramentoService>();
 //builder.Services.AddScoped<MonitoramentoController>();
 builder.Services.AddScoped<PlantasService, PlantasService>();
 //builder.Services.AddSingleton<IMonitoramentoRepository>();
-//builder.Services.AddHostedService<MeuServicoMqtt>();  //ATIVAR OU DESATIVAR DEPENDENDO
-//builder.Services.AddHostedService<ServiceRecebimentoMqtt>(); //ATIVAR OU DESATIVAR DEPENDENDO
-//builder.Services.AddSingleton<MeuServicoMqtt>();
+//builder.Services.AddHostedService<MeuServicoMqtt>();  //ATIVAR LOCAL OU DESATIVAR NUVEM
+//builder.Services.AddHostedService<ServiceRecebimentoMqtt>(); //ATIVAR LOCAL OU DESATIVAR NUVEM
 builder.Services.AddSingleton<OracleConnection>();
 builder.Services.AddSingleton<IPlantasRepository, PlantasService>();
 
@@ -54,7 +53,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configuração de pipeline
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -74,11 +73,6 @@ app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "TCC");
 });
-
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllers();
-//});
 
 app.MapControllers();
 app.Run();

@@ -71,6 +71,16 @@ namespace API_TCC.Services
                     List<RelatorioDTO> dados = _repository.GetDadosByData(dataInicial, dataFinal);
 
                     var csvContent = _repository.GerarConteudoCSV(dados);
+
+                    // Diretório onde você deseja salvar o arquivo
+                    string diretorio = @"C:\Users\Caio\Documents\TCC\Python\Relatorios";
+
+                    // Caminho completo do arquivo com o nome sendo terceiroValor e extensão .csv
+                    string caminhoArquivo = Path.Combine(diretorio, $"{terceiroValor}.csv");
+
+                    // Salvar o conteúdo CSV no arquivo
+                    File.WriteAllText(caminhoArquivo, csvContent);
+
                 }
                 else
                 {
